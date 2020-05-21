@@ -7,14 +7,11 @@ import {buildUser} from 'test/generate'
 jest.setTimeout(25000)
 
 test('can login and use the book search', async () => {
-  // setup
   const root = document.createElement('div')
   root.id = 'root'
   document.body.append(root)
 
   require('..')
-
-  await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i))
 
   const user = buildUser()
 
@@ -28,27 +25,7 @@ test('can login and use the book search', async () => {
 
   await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i))
 
-  userEvent.click(screen.getAllByRole('link', {name: /discover/i})[0])
-
-  const searchInput = screen.getByPlaceholderText(/search/i)
-  await userEvent.type(searchInput, 'voice of war')
-
-  userEvent.click(screen.getByLabelText(/search/i))
-  await waitForElementToBeRemoved(() => screen.getAllByLabelText(/loading/i))
-
-  userEvent.click(screen.getByText(/voice of war/i))
-
-  expect(window.location.href).toMatchInlineSnapshot(
-    `"http://localhost/book/B084F96GFZ"`,
-  )
-
-  expect(
-    await screen.findByText(/to the west, a sheltered girl/i),
-  ).toBeInTheDocument()
-
   userEvent.click(screen.getByRole('button', {name: /logout/i}))
-
-  expect(searchInput).not.toBeInTheDocument()
 
   // cleanup
   ReactDOM.unmountComponentAtNode(root)
