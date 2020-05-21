@@ -1,21 +1,6 @@
-import React from 'react'
-import {BrowserRouter as Router} from 'react-router-dom'
-import {ReactQueryConfigProvider} from 'react-query'
-import {AuthProvider} from './auth-context'
+export * from './index.final'
 
-const queryConfig = {
-  useErrorBoundary: true,
-  refetchAllOnWindowFocus: false,
-}
+// export * from './index.exercise'
 
-function AppProviders({children}) {
-  return (
-    <ReactQueryConfigProvider config={queryConfig}>
-      <Router>
-        <AuthProvider>{children}</AuthProvider>
-      </Router>
-    </ReactQueryConfigProvider>
-  )
-}
-
-export {AppProviders}
+// 💯 colocate global providers
+// export * from './index.extra-2'
